@@ -1,7 +1,7 @@
 {
 	"name" : "hampel/closeio",
 	"description" : "Wrapper for the Close.io CRM REST API using Guzzle",
-	"homepage" : "https://bitbucket.org/hampel/closeio",
+	"homepage" : "https://bitbucket.org/hampel/close.io",
 	"authors" : [{
 		"name": "Simon Hampel",
 		"email": "simon@hampelgroup.com",
@@ -10,8 +10,8 @@
 	}],
 	"support" : {
 		"email": "support@hampelgroup.com",
-		"issues": "https://bitbucket.org/hampel/closeio/issues",
-		"source": "https://bitbucket.org/hampel/closeio/src"
+		"issues": "https://bitbucket.org/hampel/close.io/issues",
+		"source": "https://bitbucket.org/hampel/close.io/src"
 	},
 	"keywords" : [
 		"guzzle",
