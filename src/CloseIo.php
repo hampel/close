@@ -1,5 +1,7 @@
 <?php namespace CloseIo;
 
+use CloseIo\Types\Lead;
+
 class CloseIo
 {
 	/** @var CloseIoClient our client implementation */
@@ -22,5 +24,10 @@ class CloseIo
 		$querystring = http_build_query(compact('query', '_limit', '_skip', '_fields'));
 
 		return $this->client->get("lead/" . (empty($querystring) ? "" : "?{$querystring}"));
+	}
+
+	public function createLead(Lead $lead)
+	{
+		return $this->client->post("lead/", $lead->toArray());
 	}
 }
