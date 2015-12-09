@@ -1,8 +1,8 @@
 <?php namespace CloseIo\Types\Lead;
 
 use CloseIo\Arrayable;
-use CloseIo\Types\Contact;
 use CloseIo\ArrayableArray;
+use CloseIo\Types\Contact\Contact;
 use CloseIo\Exception\InvalidArgumentException;
 
 class Lead implements Arrayable
