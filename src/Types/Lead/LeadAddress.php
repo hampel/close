@@ -1,10 +1,10 @@
-<?php namespace CloseIo\Types;
+<?php namespace CloseIo\Types\Lead;
 
 use CloseIo\Arrayable;
 use CloseIo\Exception\LengthException;
 use CloseIo\Exception\UnknownLabelException;
 
-class Address implements Arrayable
+class LeadAddress implements Arrayable
 {
 	static $labels = ['business', 'mailing', 'other'];
 

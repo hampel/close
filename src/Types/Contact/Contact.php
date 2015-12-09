@@ -1,4 +1,4 @@
-<?php namespace CloseIo\Types;
+<?php namespace CloseIo\Types\Contact;
 
 use CloseIo\Arrayable;
 use CloseIo\ArrayableArray;
@@ -25,9 +25,14 @@ class Contact implements Arrayable
 
 	function __construct($lead_id, $name, $title, array $phones, array $emails, array $urls)
 	{
+		if (!empty($lead_id) AND substr($lead_id, 0, 5) !== 'lead_')
+		{
+			throw new InvalidArgumentException("Invalid lead_id passed to Contact constructor: [{$lead_id}]");
+		}
+
 		foreach ($phones as $phone)
 		{
-			if (!is_object($phone) OR get_class($phone) != Phone::class)
+			if (!is_object($phone) OR get_class($phone) != ContactPhone::class)
 			{
 				throw new InvalidArgumentException("Invalid Phone object passed to Contact constructor: " . gettype($phone));
 			}
@@ -35,7 +40,7 @@ class Contact implements Arrayable
 
 		foreach ($emails as $email)
 		{
-			if (!is_object($email) OR get_class($email) != Email::class)
+			if (!is_object($email) OR get_class($email) != ContactEmail::class)
 			{
 				throw new InvalidArgumentException("Invalid Email object passed to Contact constructor: " . gettype($email));
 			}
@@ -43,7 +48,7 @@ class Contact implements Arrayable
 
 		foreach ($urls as $url)
 		{
-			if (!is_object($url) OR get_class($url) != Url::class)
+			if (!is_object($url) OR get_class($url) != ContactUrl::class)
 			{
 				throw new InvalidArgumentException("Invalid Url object passed to Contact constructor: " . gettype($url));
 			}

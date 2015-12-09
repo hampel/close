@@ -1,4 +1,4 @@
-<?php namespace CloseIo\Types;
+<?php namespace CloseIo\Types\Contact;
 
 use CloseIo\Arrayable;
 use CloseIo\Exception\UnknownTypeException;

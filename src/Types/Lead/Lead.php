@@ -1,6 +1,7 @@
-<?php namespace CloseIo\Types;
+<?php namespace CloseIo\Types\Lead;
 
 use CloseIo\Arrayable;
+use CloseIo\Types\Contact;
 use CloseIo\ArrayableArray;
 use CloseIo\Exception\InvalidArgumentException;
 
@@ -35,6 +36,11 @@ class Lead implements Arrayable
 			}
 		}
 
+		if (!empty($status_id) AND substr($status_id, 0, 5 !== 'stat_'))
+		{
+			throw new InvalidArgumentException("Invalid status_id passed to Lead constructor: [{$status_id}]");
+		}
+
 		foreach ($contacts as $contact)
 		{
 			if (!is_object($contact) OR get_class($contact) != Contact::class)
@@ -45,7 +51,7 @@ class Lead implements Arrayable
 
 		foreach ($addresses as $address)
 		{
-			if (!is_object($address) OR get_class($address) != Address::class)
+			if (!is_object($address) OR get_class($address) != LeadAddress::class)
 			{
 				throw new InvalidArgumentException("Invalid Address object passed to Lead constructor: " . gettype($address));
 			}

@@ -1,8 +1,8 @@
-<?php  namespace CloseIo\Types; 
+<?php  namespace CloseIo\Types\Contact;
 
 use CloseIo\Exception\InvalidArgumentException;
 
-class Url extends ContactMethod
+class ContactUrl extends ContactMethod
 {
 	function __construct($url)
 	{

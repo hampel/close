@@ -1,5 +1,6 @@
 <?php namespace CloseIo;
 
+use CloseIo\Types\Activity\Email;
 use CloseIo\Types\Lead;
 
 class CloseIo
@@ -65,6 +66,20 @@ class CloseIo
 		return $this->client->get("custom_fields/lead/");
 	}
 
+	public function queryEmails($lead_id = null, $user_id = null, $date_created__gt = null, $date_created__lt = null)
+	{
+		$querystring = http_build_query(compact('lead_id', 'user_id', 'date_created__gt', 'date_created__lt'));
+
+		return $this->client->get("activity/email/" . (empty($querystring) ? "" : "?{$querystring}"));
+	}
+
+	public function queryEmailThreads($lead_id = null, $user_id = null, $date_created__gt = null, $date_created__lt = null)
+	{
+		$querystring = http_build_query(compact('lead_id', 'user_id', 'date_created__gt', 'date_created__lt'));
+
+		return $this->client->get("activity/emailthread/" . (empty($querystring) ? "" : "?{$querystring}"));
+	}
+
 	/**
 	 * Add a note to a lead
 	 *
@@ -76,5 +91,10 @@ class CloseIo
 	public function addNote($note, $lead_id)
 	{
 		return $this->client->post("activity/note/", compact('note', 'lead_id'));
+	}
+
+	public function addEmail(Email $email)
+	{
+		return $this->client->post("activity/email/", $email->toArray());
 	}
 }

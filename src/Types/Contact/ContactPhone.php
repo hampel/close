@@ -1,6 +1,6 @@
-<?php  namespace CloseIo\Types; 
+<?php  namespace CloseIo\Types\Contact;
 
-class Phone extends ContactMethod
+class ContactPhone extends ContactMethod
 {
 	function __construct($phone, $type = "office")
 	{
