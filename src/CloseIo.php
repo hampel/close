@@ -1,7 +1,7 @@
 <?php namespace CloseIo;
 
+use CloseIo\Types\Lead\Lead;
 use CloseIo\Types\Activity\Email;
-use CloseIo\Types\Lead;
 
 class CloseIo
 {
