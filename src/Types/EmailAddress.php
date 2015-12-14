@@ -27,6 +27,11 @@ class EmailAddress
 		$this->name = $name;
 	}
 
+	public static function createEmailAddress($email, $name = '')
+	{
+		return new self($email, $name);
+	}
+
 	/**
 	 * @return mixed
 	 */

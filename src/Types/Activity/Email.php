@@ -49,6 +49,24 @@ class Email implements Arrayable
 
 	private $template_id;
 
+	/**
+	 * @param $contact_id 	optional - Close.io contact id to associate message with ("cont_???")
+	 * @param $user_id 		optional - Close.io user id message is associated with ("user_???")
+	 * @param $lead_id		required - Close.io lead to associate message with ("lead_???")
+	 * @param $direction	required - "incoming" or "outgoing"
+	 * @param $created_by	optional - Close.io user id message was created by ("user_???")
+	 * @param $created_by_name	optional - name of user message created by
+	 * @param Carbon $date_created	required - date message was created
+	 * @param $subject		required - subject of the message
+	 * @param EmailAddress $sender	required - sender email address of the message
+	 * @param array $to		optional - array of EmailAddress email sent to
+	 * @param array $bcc	optional - array of EmailAddress email Bcc'd to
+	 * @param array $cc		optional - array of EmailAddress email Cc'd to
+	 * @param $status		required - "draft", "inbox", "outbox" or "sent". Setting status to "outbox" will send an email!
+	 * @param $body_text	required - text representation of email
+	 * @param $body_html	required - html representation of email
+	 * @param $template_id	optional - template id to send email with instead of body ("tmpl_???")
+	 */
 	function __construct(
 		$contact_id,
 		$user_id,
@@ -65,7 +83,7 @@ class Email implements Arrayable
 		$status,
 		$body_text,
 		$body_html,
-		$template_id
+		$template_id = null
 	)
 	{
 		if (!empty($contact_id) AND substr($contact_id, 0, 5) !== 'cont_')
@@ -143,6 +161,26 @@ class Email implements Arrayable
 		$this->body_text = $body_text;
 		$this->body_html = $body_html;
 		$this->template_id = $template_id;
+	}
+
+	public static function logOutboundEmail($lead_id, $date_created, $subject, $sender, array $to = [], array $bcc = [], array $cc = [], $body_text = '', $body_html = '')
+	{
+		$sender_email = new EmailAddress($sender);
+		$to_array = array_map([EmailAddress::class, 'createEmailAddress'], $to);
+		$bcc_array = array_map([EmailAddress::class, 'createEmailAddress'], $bcc);
+		$cc_array = array_map([EmailAddress::class, 'createEmailAddress'], $cc);
+
+		return new self(null, null, $lead_id, 'outgoing', null, null, $date_created, $subject, $sender_email, $to_array, $bcc_array, $cc_array, 'sent', $body_text, $body_html);
+	}
+
+	public static function logInboundEmail($lead_id, $date_created, $subject, $sender, array $to = [], array $bcc = [], array $cc = [], $body_text = '', $body_html = '')
+	{
+		$sender_email = new EmailAddress($sender);
+		$to_array = array_map([EmailAddress::class, 'createEmailAddress'], $to);
+		$bcc_array = array_map([EmailAddress::class, 'createEmailAddress'], $bcc);
+		$cc_array = array_map([EmailAddress::class, 'createEmailAddress'], $cc);
+
+		return new self(null, null, $lead_id, 'incoming', null, null, $date_created, $subject, $sender_email, $to_array, $bcc_array, $cc_array, 'inbox', $body_text, $body_html);
 	}
 
 	/**
