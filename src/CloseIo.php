@@ -66,6 +66,16 @@ class CloseIo
 		return $this->client->get("custom_fields/lead/");
 	}
 
+	/**
+	 * Retrieve details of a specific custom field
+	 *
+	 * @return array
+	 */
+	public function getCustomField($id)
+	{
+		return $this->client->get("custom_fields/lead/{$id}");
+	}
+
 	public function queryEmails($lead_id = null, $user_id = null, $date_created__gt = null, $date_created__lt = null)
 	{
 		$querystring = http_build_query(compact('lead_id', 'user_id', 'date_created__gt', 'date_created__lt'));
