@@ -107,4 +107,14 @@ class CloseIo
 	{
 		return $this->client->post("activity/email/", $email->toArray());
 	}
+
+	public function getMe()
+	{
+		return $this->client->get("me/");
+	}
+
+	public function getUser($id)
+	{
+		return $this->client->get("user/{$id}/");
+	}
 }
