@@ -1,6 +1,7 @@
 <?php namespace CloseIo;
 
 use CloseIo\Types\Lead\Lead;
+use CloseIo\Types\Activity\Note;
 use CloseIo\Types\Activity\Email;
 
 class CloseIo
@@ -101,6 +102,11 @@ class CloseIo
 	public function addNote($note, $lead_id)
 	{
 		return $this->client->post("activity/note/", compact('note', 'lead_id'));
+	}
+
+	public function addNoteObject(Note $note)
+	{
+		return $this->client->post("activity/note/", $note->toArray());
 	}
 
 	public function addEmail(Email $email)
