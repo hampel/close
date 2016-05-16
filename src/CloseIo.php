@@ -1,6 +1,7 @@
 <?php namespace CloseIo;
 
 use CloseIo\Types\Lead\Lead;
+use CloseIo\Types\Task\Task;
 use CloseIo\Types\Activity\Note;
 use CloseIo\Types\Activity\Email;
 
@@ -112,6 +113,11 @@ class CloseIo
 	public function addEmail(Email $email)
 	{
 		return $this->client->post("activity/email/", $email->toArray());
+	}
+
+	public function addTask(Task $task)
+	{
+		return $this->client->post("task/", $task->toArray());
 	}
 
 	public function getMe()
