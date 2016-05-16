@@ -37,11 +37,6 @@
 			"CloseIo\\" : "src/"
 		}
 	},
-	"autoload-dev" : {
-		"psr-4" : {
-			"CloseIo\\" : "tests/"
-		}
-	},
 	"extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
