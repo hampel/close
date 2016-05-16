@@ -1,5 +1,7 @@
 <?php namespace CloseIo\Types\Activity;
 
+use CloseIo\Arrayable;
+
 class Note implements Arrayable
 {
 	private $note;
