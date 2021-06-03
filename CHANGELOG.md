@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.0.0 (2021-06-03)
+------------------
+
+* change namespace from CloseIo to Close
+* change package name from hampel/closeio to hampel/close
+
 1.0.1 (2016-05-16)
 ------------------
 
