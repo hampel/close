@@ -1,8 +1,8 @@
-<?php namespace CloseIo\Types\Lead;
+<?php namespace Close\Types\Lead;
 
-use CloseIo\Arrayable;
-use CloseIo\Exception\LengthException;
-use CloseIo\Exception\UnknownLabelException;
+use Close\Arrayable;
+use Close\Exception\LengthException;
+use Close\Exception\UnknownLabelException;
 
 class LeadAddress implements Arrayable
 {

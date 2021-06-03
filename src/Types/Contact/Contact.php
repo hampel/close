@@ -1,8 +1,8 @@
-<?php namespace CloseIo\Types\Contact;
+<?php namespace Close\Types\Contact;
 
-use CloseIo\Arrayable;
-use CloseIo\ArrayableArray;
-use CloseIo\Exception\InvalidArgumentException;
+use Close\Arrayable;
+use Close\ArrayableArray;
+use Close\Exception\InvalidArgumentException;
 
 class Contact implements Arrayable
 {

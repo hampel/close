@@ -1,6 +1,6 @@
-<?php namespace CloseIo\Types;
+<?php namespace Close\Types;
 
-use CloseIo\Exception\InvalidArgumentException;
+use Close\Exception\InvalidArgumentException;
 
 class EmailAddress
 {

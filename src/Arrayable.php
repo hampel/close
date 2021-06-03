@@ -1,4 +1,4 @@
-<?php namespace CloseIo;
+<?php namespace Close;
 
 interface Arrayable
 {

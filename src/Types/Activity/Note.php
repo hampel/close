@@ -1,6 +1,6 @@
-<?php namespace CloseIo\Types\Activity;
+<?php namespace Close\Types\Activity;
 
-use CloseIo\Arrayable;
+use Close\Arrayable;
 
 class Note implements Arrayable
 {

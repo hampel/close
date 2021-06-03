@@ -1,9 +1,9 @@
-<?php namespace CloseIo\Types\Activity;
+<?php namespace Close\Types\Activity;
 
 use Carbon\Carbon;
-use CloseIo\Arrayable;
-use CloseIo\Types\EmailAddress;
-use CloseIo\Exception\InvalidArgumentException;
+use Close\Arrayable;
+use Close\Types\EmailAddress;
+use Close\Exception\InvalidArgumentException;
 
 class Email implements Arrayable
 {

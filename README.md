@@ -13,7 +13,7 @@ The recommended way of installing Close.io Service is through [Composer](http://
     :::json
     {
         "require": {
-            "hampel/closeio": "~1.0"
+            "hampel/close": "~1.0"
         }
     }
 

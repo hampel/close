@@ -1,16 +1,16 @@
-<?php namespace CloseIo;
+<?php namespace Close;
 
-use CloseIo\Types\Lead\Lead;
-use CloseIo\Types\Task\Task;
-use CloseIo\Types\Activity\Note;
-use CloseIo\Types\Activity\Email;
+use Close\Types\Lead\Lead;
+use Close\Types\Task\Task;
+use Close\Types\Activity\Note;
+use Close\Types\Activity\Email;
 
-class CloseIo
+class Close
 {
-	/** @var CloseIoClient our client implementation */
+	/** @var CloseClient our client implementation */
 	protected $client;
 
-	function __construct(CloseIoClient $client)
+	function __construct(CloseClient $client)
 	{
 		$this->client = $client;
 	}

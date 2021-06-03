@@ -1,8 +1,8 @@
-<?php namespace CloseIo\Types\Task;
+<?php namespace Close\Types\Task;
 
 use Carbon\Carbon;
-use CloseIo\Arrayable;
-use CloseIo\Exception\InvalidArgumentException;
+use Close\Arrayable;
+use Close\Exception\InvalidArgumentException;
 
 class Task implements Arrayable
 {

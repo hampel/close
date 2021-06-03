@@ -1,7 +1,6 @@
-<?php  namespace CloseIo\Types\Contact;
+<?php  namespace Close\Types\Contact;
 
-use CloseIo\Types\EmailAddress;
-use CloseIo\Exception\InvalidArgumentException;
+use Close\Types\EmailAddress;
 
 class ContactEmail extends ContactMethod
 {

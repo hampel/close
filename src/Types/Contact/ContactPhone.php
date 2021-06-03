@@ -1,4 +1,4 @@
-<?php  namespace CloseIo\Types\Contact;
+<?php  namespace Close\Types\Contact;
 
 class ContactPhone extends ContactMethod
 {

@@ -1,6 +1,6 @@
-<?php  namespace CloseIo\Types\Contact;
+<?php  namespace Close\Types\Contact;
 
-use CloseIo\Exception\InvalidArgumentException;
+use Close\Exception\InvalidArgumentException;
 
 class ContactUrl extends ContactMethod
 {

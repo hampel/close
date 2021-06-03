@@ -1,9 +1,9 @@
-<?php namespace CloseIo\Exception;
+<?php namespace Close\Exception;
 
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Exception\RequestException;
 
-class CloseIoException extends RuntimeException
+class CloseException extends RuntimeException
 {
 	protected $response;
 

@@ -1,7 +1,7 @@
-<?php namespace CloseIo\Types\Contact;
+<?php namespace Close\Types\Contact;
 
-use CloseIo\Arrayable;
-use CloseIo\Exception\UnknownTypeException;
+use Close\Arrayable;
+use Close\Exception\UnknownTypeException;
 
 abstract class ContactMethod implements Arrayable
 {

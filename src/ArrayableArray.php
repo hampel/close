@@ -1,6 +1,6 @@
-<?php namespace CloseIo;
+<?php namespace Close;
 
-trait ArrayableArray 
+trait ArrayableArray
 {
 	private function objectToArray(Arrayable $object)
 	{

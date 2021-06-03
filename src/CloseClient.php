@@ -1,6 +1,6 @@
-<?php namespace CloseIo;
+<?php namespace Close;
 
-interface CloseIoClient
+interface CloseClient
 {
 	public function get($action);
 

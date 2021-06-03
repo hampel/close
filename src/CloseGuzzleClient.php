@@ -1,4 +1,4 @@
-<?php namespace CloseIo;
+<?php namespace Close;
 
 use Hampel\Json\Json;
 use GuzzleHttp\Psr7\Request;
@@ -7,22 +7,22 @@ use Hampel\Json\JsonException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ParseException;
 use GuzzleHttp\Exception\RequestException;
-use CloseIo\Exception\CloseIoParseException;
-use CloseIo\Exception\CloseIoRequestException;
+use Close\Exception\CloseParseException;
+use Close\Exception\CloseRequestException;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 
 /**
  * The main service interface using Guzzle
  */
-class CloseIoGuzzleClient implements CloseIoClient
+class CloseGuzzleClient implements CloseClient
 {
 	/** @var string base url for API calls */
-	protected static $base_uri = 'https://app.close.io/api/v1/';
+	protected static $base_uri = 'https://api.close.com/api/v1/';
 
 	/** @var string api key for auth */
 	protected $apikey;
 
-	/** @var CloseIoGuzzleClient our Guzzle HTTP Client object */
+	/** @var CloseGuzzleClient our Guzzle HTTP Client object */
 	protected $client;
 
 	/** @var Request Psr7 Request object representing the last request made */
@@ -50,7 +50,7 @@ class CloseIoGuzzleClient implements CloseIoClient
 	 *
 	 * @param string $api_key API Key
 	 *
-	 * @return CloseIoGuzzleClient a fully hydrated Close.io Service, ready to run
+	 * @return CloseGuzzleClient a fully hydrated Close.io Service, ready to run
 	 */
 	public static function make($apikey)
 	{
@@ -132,7 +132,7 @@ class CloseIoGuzzleClient implements CloseIoClient
 		}
 		catch (RequestException $e)
 		{
-			throw new CloseIoRequestException($e->getMessage(), $e->getCode(), $e);
+			throw new CloseRequestException($e->getMessage(), $e->getCode(), $e);
 		}
 
 		$this->last_response = $response;
@@ -147,7 +147,7 @@ class CloseIoGuzzleClient implements CloseIoClient
 			}
 			catch (ParseException $e)
 			{
-				throw new CloseIoParseException(
+				throw new CloseParseException(
 					"Close.io " . $e->getMessage() . " - last command [{$this->last_action}]",
 					$e->getCode(),
 					$e

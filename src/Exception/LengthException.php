@@ -1,4 +1,4 @@
-<?php  namespace CloseIo\Exception;
+<?php  namespace Close\Exception;
 
 class LengthException extends \LengthException implements Exception
 {

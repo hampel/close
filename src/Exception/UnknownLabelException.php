@@ -1,4 +1,4 @@
-<?php  namespace CloseIo\Exception;
+<?php  namespace Close\Exception;
 
 class UnknownLabelException extends InvalidArgumentException
 {
