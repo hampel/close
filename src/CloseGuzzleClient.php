@@ -5,7 +5,6 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Hampel\Json\JsonException;
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\ParseException;
 use GuzzleHttp\Exception\RequestException;
 use Close\Exception\CloseParseException;
 use Close\Exception\CloseRequestException;
@@ -145,7 +144,7 @@ class CloseGuzzleClient implements CloseClient
 			{
 				return Json::decode($body->getContents(), Json::DECODE_ASSOC);
 			}
-			catch (ParseException $e)
+			catch (JsonException $e)
 			{
 				throw new CloseParseException(
 					"Close.io " . $e->getMessage() . " - last command [{$this->last_action}]",
