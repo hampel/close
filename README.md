@@ -1,9 +1,11 @@
 Close CRM API Wrapper Service
 =============================
 
-A Close CRM API wrapper using Guzzle.
+A [Close CRM](https://close.com/) API wrapper using Guzzle.
 
 By [Simon Hampel](https://twitter.com/SimonHampel).
+
+See also: [Close API Documentation](https://developer.close.com/)
 
 Installation
 ------------
