@@ -1,19 +1,19 @@
-Close.io Service
-================
+Close CRM API Wrapper Service
+=============================
 
-A Close.io API wrapper using Guzzle v6.
+A Close CRM API wrapper using Guzzle.
 
-By [Simon Hampel](http://hampelgroup.com/).
+By [Simon Hampel](https://twitter.com/SimonHampel).
 
 Installation
 ------------
 
-The recommended way of installing Close.io Service is through [Composer](http://getcomposer.org):
+The recommended way of installing the wrapper is through [Composer](http://getcomposer.org):
 
     :::json
     {
         "require": {
-            "hampel/close": "~1.0"
+            "hampel/close": "~2.0"
         }
     }
 
