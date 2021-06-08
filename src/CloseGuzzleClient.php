@@ -1,15 +1,15 @@
 <?php namespace Close;
 
-use Hampel\Json\Json;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
-use Hampel\Json\JsonException;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\RequestException;
 use Close\Exception\CloseParseException;
 use Close\Exception\CloseRequestException;
 use Close\Exception\RuntimeException;
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use Hampel\Json\Json;
+use Hampel\Json\JsonException;
 
 /**
  * The main service interface using Guzzle
