@@ -8,6 +8,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 use Close\Exception\CloseParseException;
 use Close\Exception\CloseRequestException;
+use Close\Exception\RuntimeException;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 
 /**
