@@ -27,7 +27,7 @@ class CloseGuzzleClient implements CloseClient
 	/** @var Request Psr7 Request object representing the last request made */
 	protected $last_request;
 
-	/** @var Response Guzzle Response object representing the last response from Guzzle call to Close.io API */
+	/** @var Response Guzzle Response object representing the last response from Guzzle call to Close.com API */
 	protected $last_response;
 
 	/** @var  string a string description of the last action taken */
@@ -49,7 +49,7 @@ class CloseGuzzleClient implements CloseClient
 	 *
 	 * @param string $api_key API Key
 	 *
-	 * @return CloseGuzzleClient a fully hydrated Close.io Service, ready to run
+	 * @return CloseGuzzleClient a fully hydrated Close API Service, ready to run
 	 */
 	public static function make($apikey)
 	{
@@ -147,7 +147,7 @@ class CloseGuzzleClient implements CloseClient
 			catch (JsonException $e)
 			{
 				throw new CloseParseException(
-					"Close.io " . $e->getMessage() . " - last command [{$this->last_action}]",
+					"Close.com " . $e->getMessage() . " - last command [{$this->last_action}]",
 					$e->getCode(),
 					$e
 				);

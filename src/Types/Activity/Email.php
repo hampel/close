@@ -50,11 +50,11 @@ class Email implements Arrayable
 	private $template_id;
 
 	/**
-	 * @param $contact_id 	optional - Close.io contact id to associate message with ("cont_???")
-	 * @param $user_id 		optional - Close.io user id message is associated with ("user_???")
-	 * @param $lead_id		required - Close.io lead to associate message with ("lead_???")
+	 * @param $contact_id 	optional - Close.com contact id to associate message with ("cont_???")
+	 * @param $user_id 		optional - Close.com user id message is associated with ("user_???")
+	 * @param $lead_id		required - Close.com lead to associate message with ("lead_???")
 	 * @param $direction	required - "incoming" or "outgoing"
-	 * @param $created_by	optional - Close.io user id message was created by ("user_???")
+	 * @param $created_by	optional - Close.com user id message was created by ("user_???")
 	 * @param $created_by_name	optional - name of user message created by
 	 * @param Carbon $date_created	required - date message was created
 	 * @param $subject		required - subject of the message
