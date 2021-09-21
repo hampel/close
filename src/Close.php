@@ -1,5 +1,6 @@
 <?php namespace Close;
 
+use Close\Exception\InvalidArgumentException;
 use Close\Types\Lead\Lead;
 use Close\Types\Task\Task;
 use Close\Types\Activity\Note;
@@ -7,6 +8,8 @@ use Close\Types\Activity\Email;
 
 class Close
 {
+    private $customFieldTypes = ['lead', 'contact', 'opportunity', 'activity', 'shared'];
+
 	/** @var CloseClient our client implementation */
 	protected $client;
 
@@ -60,22 +63,37 @@ class Close
 
 	/**
 	 * Retrieve details of all custom fields defined in the system
+     *
+     * @param string $type the type of custom field ('lead', 'contact', 'opportunity', 'activity', 'shared')
 	 *
 	 * @return array
 	 */
-	public function getCustomFields()
+	public function getCustomFields($type = 'lead')
 	{
-		return $this->client->get("custom_fields/lead/");
+        if (!in_array($type, $this->customFieldTypes))
+        {
+            throw new InvalidArgumentException("Invalid custom field type [{$type}]");
+        }
+
+		return $this->client->get("custom_fields/{$type}/");
 	}
 
 	/**
 	 * Retrieve details of a specific custom field
 	 *
+     * @param string id id of the field to retrieve
+     * @param string $type the type of custom field ('lead', 'contact', 'opportunity', 'activity', 'shared')
+     *
 	 * @return array
 	 */
-	public function getCustomField($id)
+	public function getCustomField($id, $type = 'lead')
 	{
-		return $this->client->get("custom_fields/lead/{$id}");
+        if (!in_array($type, $this->customFieldTypes))
+        {
+            throw new InvalidArgumentException("Invalid custom field type [{$type}]");
+        }
+
+		return $this->client->get("custom_fields/{$type}/{$id}");
 	}
 
 	public function queryEmails($lead_id = null, $user_id = null, $date_created__gt = null, $date_created__lt = null)

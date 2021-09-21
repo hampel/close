@@ -2,6 +2,7 @@
 
 use Close\Close;
 use Close\CloseClient;
+use Close\Exception\InvalidArgumentException;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 
@@ -45,5 +46,31 @@ class CloseTest extends TestCase
         $lead = $this->close->queryLeads('company:"foo"');
 
         $this->assertIsArray($lead);
+    }
+
+    public function test_getCustomFields_no_params()
+    {
+        $this->client->expects()->get('custom_fields/lead/')->once()->andReturns([]);
+
+        $fields = $this->close->getCustomFields();
+
+        $this->assertIsArray($fields);
+    }
+
+    public function test_getCustomFields_type_contact()
+    {
+        $this->client->expects()->get('custom_fields/contact/')->once()->andReturns([]);
+
+        $fields = $this->close->getCustomFields('contact');
+
+        $this->assertIsArray($fields);
+    }
+
+    public function test_getCustomFields_invalid_type_throws_exception()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid custom field type [foo]');
+
+        $this->close->getCustomFields('foo');
     }
 }
