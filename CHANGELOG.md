@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.1.0 (2021-09-21)
+------------------
+
+* add support for additional custom field types
+
 2.0.2 (2021-06-09)
 ------------------
 
