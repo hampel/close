@@ -22,6 +22,7 @@ class Close
 	 * Fetch details about a single lead
 	 *
 	 * @param string $id	lead ID
+     * @param array $fields fields to retrieve
 	 *
 	 * @return array
 	 */
@@ -69,6 +70,7 @@ class Close
      * Update a lead
      *
      * @param string $id the lead to be updated
+     * @param array $data fields to update
      *
      * @return array
      */
