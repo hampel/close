@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.3.0 (2021-09-23)
+------------------
+
+* added psr-3 debug logging
+* adjust dependencies - should be compatible with both carbon v1 and v2
+
 2.2.0 (2021-09-22)
 ------------------
 
