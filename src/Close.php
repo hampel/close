@@ -66,6 +66,18 @@ class Close
 	}
 
     /**
+     * Update a lead
+     *
+     * @param string $id the lead to be updated
+     *
+     * @return array
+     */
+    public function updateLead($id, array $data)
+    {
+        return $this->client->put("lead/{$id}/", $data);
+    }
+
+    /**
      * Fetch details about a single contact
      *
      * @param string $id	lead ID
