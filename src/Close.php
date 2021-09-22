@@ -25,9 +25,13 @@ class Close
 	 *
 	 * @return array
 	 */
-	public function getLead($id)
+	public function getLead($id, array $fields = [])
 	{
-		return $this->client->get("lead/{$id}/");
+        $_fields = empty($fields) ? null : implode(',', $fields);
+
+        $querystring = http_build_query(compact('_fields'));
+
+		return $this->client->get("lead/{$id}/" . (empty($querystring) ? "" : "?{$querystring}"));
 	}
 
 	/**
