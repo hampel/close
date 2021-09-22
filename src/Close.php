@@ -21,7 +21,7 @@ class Close
 	/**
 	 * Fetch details about a single lead
 	 *
-	 * @param $id	lead ID
+	 * @param string $id	lead ID
 	 *
 	 * @return array
 	 */
@@ -60,6 +60,31 @@ class Close
 	{
 		return $this->client->post("lead/", $lead->toArray());
 	}
+
+    /**
+     * Fetch details about a single contact
+     *
+     * @param string $id	lead ID
+     *
+     * @return array
+     */
+	public function getContact($id)
+    {
+        return $this->client->get("contact/{$id}/");
+    }
+
+    /**
+     * Update a contact
+     *
+     * @param string $id contact id to update
+     * @param array $data fields to update
+     *
+     * @return array
+     */
+    public function updateContact($id, array $data)
+    {
+        return $this->client->put("contact/{$id}/", $data);
+    }
 
 	/**
 	 * Retrieve details of all custom fields defined in the system
