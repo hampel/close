@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.2.0 (2021-09-22)
+------------------
+
+* updated getLead to accept a list of fields to retrieve
+* new functions: getContact; updateContact; updateLead
+
 2.1.0 (2021-09-21)
 ------------------
 
