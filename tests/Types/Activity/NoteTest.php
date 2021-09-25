@@ -18,7 +18,7 @@ class NoteTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('note is required');
 
-        new Note('foo', null);
+        new Note('lead_foo', null);
     }
 
     public function test_Note_with_data()
