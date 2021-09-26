@@ -2,17 +2,35 @@
 
 use Close\Types\EmailAddress;
 
-class ContactEmail extends ContactMethod
+class ContactEmail extends AbstractContactMethod
 {
-	function __construct(EmailAddress $email, $type = "office")
+    /**
+     * ContactEmail constructor.
+     *
+     * @param EmailAddress $email
+     * @param string $type
+     */
+	public function __construct(EmailAddress $email, $type = "office")
 	{
-		parent::__construct($email->getEmail(), $type);
+		$this->setEmail($email);
+		$this->setType($type);
 	}
 
+    /**
+     * @return EmailAddress
+     */
 	public function getEmail()
 	{
 		return $this->getDetail();
 	}
+
+    /**
+     * @param EmailAddress $email
+     */
+    public function setEmail(EmailAddress $email)
+    {
+        $this->setDetail($email->getEmail());
+    }
 
 	/**
 	 * @return array

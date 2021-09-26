@@ -2,10 +2,11 @@
 
 use Carbon\Carbon;
 use Close\Arrayable;
+use Close\Types\AbstractType;
 use Close\Types\EmailAddress;
 use Close\Exception\InvalidArgumentException;
 
-class Email implements Arrayable
+class Email extends AbstractType implements Arrayable
 {
     /** @var string[]  */
 	private static $directions = ['incoming', 'outgoing'];
@@ -67,9 +68,9 @@ class Email implements Arrayable
 	 * @param $lead_id		required - Close.com lead to associate message with ("lead_???")
 	 * @param $direction	required - ['incoming', 'outgoing']
 	 * @param string $status ['inbox', 'draft', 'scheduled', 'outbox', 'sent'] - setting status to "outbox" will send an email!
-     * @param string $subject subject of the message
+     * @param string|null $subject subject of the message
 	 */
-	function __construct($lead_id, $direction, $status, $subject = '')
+	public function __construct($lead_id, $direction, $status, $subject = null)
 	{
 		$this->setLeadId($lead_id);
 		$this->setDirection($direction);
@@ -124,22 +125,6 @@ class Email implements Arrayable
 	}
 
     /**
-     * @param string[] $directions
-     */
-    public static function setDirections(array $directions): void
-    {
-        self::$directions = $directions;
-    }
-
-    /**
-     * @param string[] $statuses
-     */
-    public static function setStatuses(array $statuses): void
-    {
-        self::$statuses = $statuses;
-    }
-
-    /**
 	 * @return string
 	 */
 	public function getContactId()
@@ -154,7 +139,7 @@ class Email implements Arrayable
      */
     public function setContactId($contact_id)
     {
-        if (!empty($contact_id) AND substr($contact_id, 0, 5) !== 'cont_')
+        if (substr($contact_id, 0, 5) !== 'cont_')
         {
             throw new InvalidArgumentException("Invalid contact_id [{$contact_id}]");
         }
@@ -177,7 +162,7 @@ class Email implements Arrayable
      */
     public function setUserId($user_id)
     {
-        if (!empty($user_id) AND substr($user_id, 0, 5) !== 'user_')
+        if (substr($user_id, 0, 5) !== 'user_')
         {
             throw new InvalidArgumentException("Invalid user_id [{$user_id}]");
         }
@@ -200,11 +185,6 @@ class Email implements Arrayable
      */
     public function setLeadId($lead_id)
     {
-        if (empty($lead_id))
-        {
-            throw new InvalidArgumentException("lead_id is required");
-        }
-
         if (substr($lead_id, 0, 5) !== 'lead_')
         {
             throw new InvalidArgumentException("Invalid lead_id [{$lead_id}]");
@@ -228,11 +208,6 @@ class Email implements Arrayable
      */
     public function setDirection($direction)
     {
-        if (empty($direction))
-        {
-            throw new InvalidArgumentException("direction is required");
-        }
-
         if (!in_array($direction, self::$directions))
         {
             throw new InvalidArgumentException("Invalid direction [{$direction}]");
@@ -256,7 +231,7 @@ class Email implements Arrayable
      */
     public function setCreatedBy($created_by)
     {
-        if (!empty($created_by) AND substr($created_by, 0, 5) !== 'user_')
+        if (substr($created_by, 0, 5) !== 'user_')
         {
             throw new InvalidArgumentException("Invalid created_by user: [{$created_by}]");
         }
@@ -315,7 +290,7 @@ class Email implements Arrayable
     /**
      * @param string $subject
      */
-    public function setSubject(string $subject)
+    public function setSubject($subject)
     {
         $this->subject = $subject;
     }
@@ -325,7 +300,7 @@ class Email implements Arrayable
 	 */
 	public function getSender()
 	{
-		return $this->sender ? $this->sender->getFull() : null;
+		return $this->sender ? strval($this->sender) : null;
 	}
 
     /**
@@ -341,7 +316,7 @@ class Email implements Arrayable
 	 */
 	public function getTo()
 	{
-		return array_map([EmailAddress::class, 'fullEmail'], $this->to);
+		return array_map('strval', $this->to);
 	}
 
     /**
@@ -357,7 +332,7 @@ class Email implements Arrayable
 	 */
 	public function getBcc()
 	{
-		return array_map([EmailAddress::class, 'fullEmail'], $this->bcc);
+		return array_map('strval', $this->bcc);
 	}
 
     /**
@@ -373,7 +348,7 @@ class Email implements Arrayable
 	 */
 	public function getCc()
 	{
-		return array_map([EmailAddress::class, 'fullEmail'], $this->cc);
+		return array_map('strval', $this->cc);
 	}
 
     /**
@@ -399,11 +374,6 @@ class Email implements Arrayable
      */
     public function setStatus($status)
     {
-        if (empty($status))
-        {
-            throw new InvalidArgumentException("status is required");
-        }
-
         if (!in_array($status, self::$statuses))
         {
             throw new InvalidArgumentException("Invalid status [{$status}]");
@@ -459,7 +429,7 @@ class Email implements Arrayable
      */
     public function setTemplateId($template_id)
     {
-        if (!empty($template_id) AND substr($template_id, 0, 5) !== 'tmpl_')
+        if (substr($template_id, 0, 5) !== 'tmpl_')
         {
             throw new InvalidArgumentException("Invalid template_id [{$template_id}]");
         }
@@ -469,26 +439,29 @@ class Email implements Arrayable
 
     public function toArray()
 	{
+        $to = $this->getTo();
+        $bcc = $this->getBcc();
+        $cc = $this->getCc();
+
 	    $email = [
 	        'lead_id' => $this->getLeadId(),
             'direction' => $this->getDirection(),
-            'status' => $this->getStatus()
+            'status' => $this->getStatus(),
+            'contact_id' => $this->getContactId(),
+            'user_id' => $this->getUserId(),
+            'created_by' => $this->getCreatedBy(),
+            'created_by_name' => $this->getCreatedByName(),
+            'date_created' => $this->getDateCreatedAtom(),
+            'subject' => $this->getSubject(),
+            'sender' => $this->getSender(),
+            'to' => !empty($to) ? $to : null,
+            'bcc' => !empty($bcc) ? $bcc : null,
+            'cc' => !empty($cc) ? $cc : null,
+            'body_html' => $this->getBodyHtml(),
+            'body_text' => $this->getBodyText(),
+            'template_id' => $this->getTemplateId(),
         ];
 
-	    if ($this->contact_id) $email['contact_id'] = $this->getContactId();
-	    if ($this->user_id) $email['user_id'] = $this->getUserId();
-	    if ($this->created_by) $email['created_by'] = $this->getCreatedBy();
-	    if ($this->created_by_name) $email['created_by_name'] = $this->getCreatedByName();
-	    if ($this->date_created) $email['date_created'] = $this->getDateCreatedAtom();
-	    if ($this->subject) $email['subject'] = $this->getSubject();
-	    if ($this->sender) $email['sender'] = $this->getSender();
-	    if (!empty($this->to)) $email['to'] = $this->getTo();
-        if (!empty($this->bcc)) $email['bcc'] = $this->getBcc();
-        if (!empty($this->cc)) $email['cc'] = $this->getCc();
-        if (!empty($this->body_html)) $email['body_html'] = $this->getBodyHtml();
-        if (!empty($this->body_text)) $email['body_text'] = $this->getBodyText();
-        if (!empty($this->template_id)) $email['template_id'] = $this->getTemplateId();
-
-        return $email;
+        return $this->filterNullValues($email);
 	}
 }

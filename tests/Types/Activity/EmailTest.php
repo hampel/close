@@ -10,7 +10,7 @@ class EmailTest extends TestCase
     public function test_Email_no_lead_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('lead_id is required');
+        $this->expectExceptionMessage('Invalid lead_id []');
 
         new Email(null, null, null);
     }
@@ -18,7 +18,7 @@ class EmailTest extends TestCase
     public function test_Email_no_direction_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('direction is required');
+        $this->expectExceptionMessage('Invalid direction []');
 
         new Email('lead_foo', null, null);
     }
@@ -34,7 +34,7 @@ class EmailTest extends TestCase
     public function test_Email_no_status_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('status is required');
+        $this->expectExceptionMessage('Invalid status []');
 
         new Email('lead_foo', 'incoming', null);
     }

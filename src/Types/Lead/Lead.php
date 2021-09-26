@@ -2,103 +2,134 @@
 
 use Close\Arrayable;
 use Close\ArrayableArray;
+use Close\Types\AbstractType;
 use Close\Types\Contact\Contact;
 use Close\Exception\InvalidArgumentException;
 
-class Lead implements Arrayable
+class Lead extends AbstractType implements Arrayable
 {
 	use ArrayableArray;
 
+	/** @var string */
 	private $name;
 
+	/** @var string */
 	private $url;
 
-	private $description;
+	/** @var string */
+    private $description;
 
-	private $status_id;
+    /** @var string */
+    private $status_id;
 
-	/** @var array Contact */
+    /** @var Contact[] */
 	private $contacts = [];
 
-	private $custom = [];
+	/** @var array */
+    private $customFields = [];
 
-	/** @var array Address */
+    /** @var LeadAddress[] */
 	private $addresses = [];
 
-	function __construct($name, $url, $description, $status_id, array $contacts, array $custom, array $addresses)
-	{
-		if (!empty($url))
-		{
-			$filtered = filter_var($url, FILTER_VALIDATE_URL);
-			if ($filtered === false)
-			{
-				throw new InvalidArgumentException("Invalid url [{$url}]");
-			}
-		}
+    /**
+     * Lead constructor.
+     *
+     * @param string $name lead name
+     */
+	public function __construct($name)
+    {
+        $this->setName($name);
+    }
 
-		if (!empty($status_id) AND substr($status_id, 0, 5 !== 'stat_'))
-		{
-			throw new InvalidArgumentException("Invalid status_id passed to Lead constructor: [{$status_id}]");
-		}
-
-		foreach ($contacts as $contact)
-		{
-			if (!is_object($contact) OR get_class($contact) != Contact::class)
-			{
-				throw new InvalidArgumentException("Invalid Contact object passed to Lead constructor: " . gettype($contact));
-			}
-		}
-
-		foreach ($addresses as $address)
-		{
-			if (!is_object($address) OR get_class($address) != LeadAddress::class)
-			{
-				throw new InvalidArgumentException("Invalid Address object passed to Lead constructor: " . gettype($address));
-			}
-		}
-
-		$this->name = $name;
-		$this->url = $url;
-		$this->description = $description;
-		$this->status_id = $status_id;
-		$this->contacts = $contacts;
-		$this->custom = $custom;
-		$this->addresses = $addresses;
-	}
-
-	/**
-	 * @return mixed
+    /**
+	 * @return string
 	 */
 	public function getName()
 	{
 		return $this->name;
 	}
 
-	/**
-	 * @return mixed
+    /**
+     * @param string $name lead name
+     */
+    public function setName($name)
+    {
+        if (empty($name))
+        {
+            throw new InvalidArgumentException("name is required");
+        }
+
+        $this->name = $name;
+    }
+
+    /**
+	 * @return string
 	 */
 	public function getUrl()
 	{
 		return $this->url;
 	}
 
-	/**
-	 * @return mixed
+    /**
+     * @param string $url
+     *
+     * @throws InvalidArgumentException
+     */
+    public function setUrl($url)
+    {
+        if (!empty($url))
+        {
+            $filtered = filter_var($url, FILTER_VALIDATE_URL);
+            if ($filtered === false)
+            {
+                throw new InvalidArgumentException("Invalid url [{$url}]");
+            }
+        }
+
+        $this->url = $url;
+    }
+
+    /**
+	 * @return string
 	 */
 	public function getDescription()
 	{
 		return $this->description;
 	}
 
-	/**
-	 * @return mixed
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+
+    /**
+	 * @return string
 	 */
 	public function getStatusId()
 	{
 		return $this->status_id;
 	}
 
-	/**
+    /**
+     * @param string $status_id
+     *
+     * @throws InvalidArgumentException
+     */
+    public function setStatusId($status_id): void
+    {
+        if (!empty($status_id) AND substr($status_id, 0, 5 !== 'stat_'))
+        {
+            throw new InvalidArgumentException("Invalid status_id [{$status_id}]");
+        }
+
+        $this->status_id = $status_id;
+    }
+
+    /**
 	 * @return array
 	 */
 	public function getContacts()
@@ -106,15 +137,32 @@ class Lead implements Arrayable
 		return $this->contacts;
 	}
 
-	/**
+    /**
+     * @param Contact $contact
+     */
+    public function addContact(Contact $contact)
+    {
+        $this->contacts[] = $contact;
+    }
+
+    /**
 	 * @return array
 	 */
-	public function getCustom()
+	public function getCustomFields()
 	{
-		return $this->custom;
+		return $this->customFields;
 	}
 
-	/**
+    public function setCustomField($field_id, $value)
+    {
+        $id = $this->stripCustomPrefix($field_id);
+
+        $this->customFields[$id] = $value;
+    }
+
+
+
+    /**
 	 * @return array
 	 */
 	public function getAddresses()
@@ -122,20 +170,33 @@ class Lead implements Arrayable
 		return $this->addresses;
 	}
 
-	public function toArray()
+    /**
+     * @param LeadAddress $address
+     */
+    public function addAddress(LeadAddress $address)
+    {
+        $this->addresses[] = $address;
+    }
+
+    public function toArray()
 	{
 		$contacts = $this->getContacts();
-		$custom = $this->getCustom();
 		$addresses = $this->getAddresses();
 
-		return [
+		$data = [
 			'name' => $this->getName(),
-			'url' => $this->getUrl() ?: null,
-			'description' => $this->getDescription() ?: null,
-			'status_id' => $this->getStatusId() ?: null,
+			'url' => $this->getUrl(),
+			'description' => $this->getDescription(),
+			'status_id' => $this->getStatusId(),
 			'contacts' => !empty($contacts) ? $this->arrayToArray($contacts) : null,
-			'custom' => !empty($custom) ? $this->getCustom() : null,
 			'addresses' => !empty($addresses) ? $this->arrayToArray($this->getAddresses()): null,
 		];
+
+		foreach ($this->getCustomFields() as $field_id => $value)
+        {
+            $data["custom.{$field_id}"] = $value;
+        }
+
+		return $data;
 	}
 }

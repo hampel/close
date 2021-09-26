@@ -2,23 +2,42 @@
 
 use Close\Exception\InvalidArgumentException;
 
-class ContactUrl extends ContactMethod
+class ContactUrl extends AbstractContactMethod
 {
-	function __construct($url)
+    /**
+     * ContactUrl constructor.
+     *
+     * @param string $url
+     */
+	public function __construct($url)
 	{
-		$filtered = filter_var($url, FILTER_VALIDATE_URL);
-		if ($filtered === false)
-		{
-			throw new InvalidArgumentException("Invalid url [{$url}]");
-		}
-
-		parent::__construct($url, 'url');
+        $this->setUrl($url);
+        $this->setType('url');
 	}
 
+    /**
+     * @return string
+     */
 	public function getUrl()
 	{
 		return $this->getDetail();
 	}
+
+    /**
+     * @param string $url
+     *
+     * @throws InvalidArgumentException
+     */
+	public function setUrl($url)
+    {
+        $filtered = filter_var($url, FILTER_VALIDATE_URL);
+        if ($filtered === false)
+        {
+            throw new InvalidArgumentException("Invalid url [{$url}]");
+        }
+
+        $this->setDetail($url);
+    }
 
 	/**
 	 * @return array

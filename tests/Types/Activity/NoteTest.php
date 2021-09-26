@@ -8,7 +8,7 @@ class NoteTest extends TestCase
     public function test_Note_no_lead_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('lead_id is required');
+        $this->expectExceptionMessage('Invalid lead_id []');
 
         new Note(null, null);
     }

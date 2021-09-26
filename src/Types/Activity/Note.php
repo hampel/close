@@ -2,8 +2,9 @@
 
 use Close\Arrayable;
 use Close\Exception\InvalidArgumentException;
+use Close\Types\AbstractType;
 
-class Note implements Arrayable
+class Note extends AbstractType implements Arrayable
 {
     /** @var string */
     private $lead_id;
@@ -38,11 +39,6 @@ class Note implements Arrayable
      */
     public function setLeadId($lead_id)
     {
-        if (empty($lead_id))
-        {
-            throw new InvalidArgumentException("lead_id is required");
-        }
-
         if (substr($lead_id, 0, 5) !== 'lead_')
         {
             throw new InvalidArgumentException("Invalid lead_id [{$lead_id}]");
