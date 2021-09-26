@@ -39,6 +39,22 @@ class ContactTest extends TestCase
         $this->assertEquals(['lead_id' => 'lead_foo', 'name' => 'name foo'], $result);
     }
 
+    public function test_Contact_with_custom_field_strips_prefix()
+    {
+        $email = new Contact('lead_foo', 'name foo');
+        $email->setCustomField('custom.foo', 'bar');
+
+        $this->assertEquals(['foo' => 'bar'], $email->getCustomFields());
+
+        $result = $email->toArray();
+
+        $this->assertEquals([
+            'lead_id' => 'lead_foo',
+            'name' => 'name foo',
+            'custom.foo' => 'bar'
+        ], $result);
+    }
+
     public function test_full_Contact()
     {
         $email = new Contact('lead_foo', 'name foo');
