@@ -176,6 +176,9 @@ class Lead extends AbstractType implements Arrayable
         $this->addresses[] = $address;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
 	{
 		$contacts = $this->getContacts();
