@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+3.1.0 (2021-09-27)
+------------------
+
+* breaking change: remove redundant addNote and rename addNoteObject to addNote to be consistent with other calls.
+In summary: addNote still exists, but the signature has changed.
+
 3.0.1 (2021-09-27)
 ------------------
 
