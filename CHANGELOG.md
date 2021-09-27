@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+3.0.1 (2021-09-27)
+------------------
+
+* lead name isn't actually required - Close.com can handle an empty lead request. Also: if a contact is supplied when 
+creating a lead, Close.com will use the contact name as a temporary lead name 
+
 3.0.0 (2021-09-27)
 ------------------
 
