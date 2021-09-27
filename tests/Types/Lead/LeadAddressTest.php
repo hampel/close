@@ -45,7 +45,6 @@ class LeadAddressTest extends TestCase
 
         $this->assertEquals([
             'address_1' => 'foo',
-            'label' => 'business'
         ], $result);
     }
 
@@ -57,8 +56,7 @@ class LeadAddressTest extends TestCase
 
         $this->assertEquals([
             'address_1' => 'foo',
-            'country' => 'AA',
-            'label' => 'business'
+            'country' => 'AA'
         ], $result);
     }
 

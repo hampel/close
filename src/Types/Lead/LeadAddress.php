@@ -40,15 +40,21 @@ class LeadAddress extends AbstractType implements Arrayable
      * @param string|null $country - 2 character country iso code
      * @param string $label
      */
-	function __construct($address_1, $address_2, $city, $state, $zipcode, $country = null, $label = 'business')
+	function __construct($address_1, $address_2, $city, $state, $zipcode, $country = null, $label = null)
 	{
         $this->setAddress1($address_1);
         $this->setAddress2($address_2);
         $this->setCity($city);
         $this->setState($state);
         $this->setZipcode($zipcode);
-        $this->setCountry($country);
-        $this->setLabel($label);
+        if ($country)
+        {
+            $this->setCountry($country);
+        }
+        if ($label)
+        {
+            $this->setLabel($label);
+        }
 	}
 
     /**
@@ -172,15 +178,12 @@ class LeadAddress extends AbstractType implements Arrayable
      */
     public function setCountry($country)
     {
-        if ($country)
+        if (preg_match('/^[A-Z]{2}$/i', $country) === 0)
         {
-            if (preg_match('/^[A-Z]{2}$/i', $country) === 0)
-            {
-                throw new InvalidArgumentException("Invalid country code [{$country}]");
-            }
-
-            $this->country = strtoupper($country);
+            throw new InvalidArgumentException("Invalid country code [{$country}]");
         }
+
+        $this->country = strtoupper($country);
     }
 
     public function toArray()
