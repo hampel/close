@@ -119,9 +119,9 @@ class Lead extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setStatusId($status_id): void
+    public function setStatusId($status_id)
     {
-        if (!empty($status_id) AND substr($status_id, 0, 5 !== 'stat_'))
+        if (!empty($status_id) AND substr($status_id, 0, 5) !== 'stat_')
         {
             throw new InvalidArgumentException("Invalid status_id [{$status_id}]");
         }
@@ -160,8 +160,6 @@ class Lead extends AbstractType implements Arrayable
         $this->customFields[$id] = $value;
     }
 
-
-
     /**
 	 * @return array
 	 */
@@ -183,7 +181,7 @@ class Lead extends AbstractType implements Arrayable
 		$contacts = $this->getContacts();
 		$addresses = $this->getAddresses();
 
-		$data = [
+		$lead = [
 			'name' => $this->getName(),
 			'url' => $this->getUrl(),
 			'description' => $this->getDescription(),
@@ -194,9 +192,9 @@ class Lead extends AbstractType implements Arrayable
 
 		foreach ($this->getCustomFields() as $field_id => $value)
         {
-            $data["custom.{$field_id}"] = $value;
+            $lead["custom.{$field_id}"] = $value;
         }
 
-		return $data;
+		return $this->filterNullValues($lead);
 	}
 }
