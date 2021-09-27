@@ -15,7 +15,7 @@ The recommended way of installing the wrapper is through [Composer](http://getco
     :::json
     {
         "require": {
-            "hampel/close": "~2.0"
+            "hampel/close": "~3.0"
         }
     }
 
