@@ -36,10 +36,13 @@ class Contact extends AbstractType implements Arrayable
      * @param string $lead_id
      * @param string $name
      */
-	public function __construct($lead_id, $name)
+	public function __construct($name, $lead_id = null)
 	{
-        $this->setLeadId($lead_id);
 		$this->setName($name);
+		if ($lead_id)
+        {
+            $this->setLeadId($lead_id);
+        }
 	}
 
 	/**

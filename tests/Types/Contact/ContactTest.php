@@ -6,50 +6,49 @@ use PHPUnit\Framework\TestCase;
 
 class ContactTest extends TestCase
 {
-    public function test_Contact_no_lead_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid lead_id []');
-
-        new Contact(null, null);
-    }
-
-    public function test_Contact_invalid_lead_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid lead_id [foo]');
-
-        new Contact('foo', null);
-    }
-
     public function test_Contact_no_name_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('name is required');
 
-        new Contact('lead_foo', null);
+        new Contact(null);
+    }
+
+    public function test_Contact_empty_name_throws_exception()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('name is required');
+
+        new Contact('');
+    }
+
+    public function test_Contact_invalid_lead_throws_exception()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid lead_id [lead foo]');
+
+        new Contact('name foo', 'lead foo');
     }
 
     public function test_minimal_Contact()
     {
-        $email = new Contact('lead_foo', 'name foo');
+        $contact = new Contact('name foo');
 
-        $result = $email->toArray();
+        $result = $contact->toArray();
 
-        $this->assertEquals(['lead_id' => 'lead_foo', 'name' => 'name foo'], $result);
+        $this->assertEquals(['name' => 'name foo'], $result);
     }
 
     public function test_Contact_with_custom_field_strips_prefix()
     {
-        $email = new Contact('lead_foo', 'name foo');
-        $email->setCustomField('custom.foo', 'bar');
+        $contact = new Contact('name foo');
+        $contact->setCustomField('custom.foo', 'bar');
 
-        $this->assertEquals(['foo' => 'bar'], $email->getCustomFields());
+        $this->assertEquals(['foo' => 'bar'], $contact->getCustomFields());
 
-        $result = $email->toArray();
+        $result = $contact->toArray();
 
         $this->assertEquals([
-            'lead_id' => 'lead_foo',
             'name' => 'name foo',
             'custom.foo' => 'bar'
         ], $result);
@@ -57,15 +56,15 @@ class ContactTest extends TestCase
 
     public function test_full_Contact()
     {
-        $email = new Contact('lead_foo', 'name foo');
-        $email->setTitle('foo title');
-        $email->addPhone(new ContactPhone('123'));
-        $email->addPhone(new ContactPhone('456', 'home'));
-        $email->addEmail(new ContactEmail(new EmailAddress('foo1@example.com')));
-        $email->addEmail(new ContactEmail(new EmailAddress('foo2@example.com'), 'other'));
-        $email->addUrl(new ContactUrl('http://example.com'));
+        $contact = new Contact('name foo', 'lead_foo');
+        $contact->setTitle('foo title');
+        $contact->addPhone(new ContactPhone('123'));
+        $contact->addPhone(new ContactPhone('456', 'home'));
+        $contact->addEmail(new ContactEmail(new EmailAddress('foo1@example.com')));
+        $contact->addEmail(new ContactEmail(new EmailAddress('foo2@example.com'), 'other'));
+        $contact->addUrl(new ContactUrl('http://example.com'));
 
-        $result = $email->toArray();
+        $result = $contact->toArray();
 
         $this->assertEquals([
             'lead_id' => 'lead_foo',
