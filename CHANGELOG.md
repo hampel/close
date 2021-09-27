@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+3.0.0 (2021-09-27)
+------------------
+
+* NOTE: backwards compatibility breaks in this version!
+* re-wrote most classes to only specify required parameters in constructor and only output non-null values in array
+* lots of new unit tests written for types
+
 2.3.0 (2021-09-23)
 ------------------
 
