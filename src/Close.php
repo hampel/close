@@ -153,39 +153,49 @@ class Close
 		return $this->client->get("activity/emailthread/" . (empty($querystring) ? "" : "?{$querystring}"));
 	}
 
-	/**
-	 * Add a note to a lead
-	 *
-	 * @param $note		string - content for the note (no HTML)
-	 * @param $lead_id	the ID of the lead to add the note to
-	 *
-	 * @return array
-	 */
-	public function addNote($note, $lead_id)
-	{
-		return $this->client->post("activity/note/", compact('note', 'lead_id'));
-	}
-
-	public function addNoteObject(Note $note)
+    /**
+     * @param Note $note
+     *
+     * @return array
+     */
+	public function addNote(Note $note)
 	{
 		return $this->client->post("activity/note/", $note->toArray());
 	}
 
+    /**
+     * @param Email $email
+     *
+     * @return array
+     */
 	public function addEmail(Email $email)
 	{
 		return $this->client->post("activity/email/", $email->toArray());
 	}
 
+    /**
+     * @param Task $task
+     *
+     * @return array
+     */
 	public function addTask(Task $task)
 	{
 		return $this->client->post("task/", $task->toArray());
 	}
 
+    /**
+     * @return array
+     */
 	public function getMe()
 	{
 		return $this->client->get("me/");
 	}
 
+    /**
+     * @param $id
+     *
+     * @return array
+     */
 	public function getUser($id)
 	{
 		return $this->client->get("user/{$id}/");

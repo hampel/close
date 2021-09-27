@@ -197,32 +197,13 @@ class CloseLogger extends Close
         return $result;
 	}
 
-	/**
-	 * Add a note to a lead
-	 *
-	 * @param $note		string - content for the note (no HTML)
-	 * @param $lead_id	the ID of the lead to add the note to
-	 *
-	 * @return array
-	 */
-	public function addNote($note, $lead_id)
+	public function addNote(Note $note)
 	{
-        $this->log("addNote", compact('note', 'lead_id'));
+        $this->log("addNote", ['note' => $note->toArray()]);
 
-        $result = parent::addNote($note, $lead_id);
+        $result = parent::addNote($note);
 
         $this->log("addNote result", compact('result'));
-
-        return $result;
-	}
-
-	public function addNoteObject(Note $note)
-	{
-        $this->log("addNoteObject", ['note' => $note->toArray()]);
-
-        $result = parent::addNoteObject($note);
-
-        $this->log("addNoteObject result", compact('result'));
 
         return $result;
 	}
