@@ -6,22 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class LeadTest extends TestCase
 {
-    public function test_Lead_null_name_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('name is required');
-
-        new Lead(null);
-    }
-
-    public function test_Lead_empty_name_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('name is required');
-
-        new Lead('');
-    }
-
     public function test_Lead_invalid_url_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -42,18 +26,16 @@ class LeadTest extends TestCase
 
     public function test_minimal_Lead()
     {
-        $lead = new Lead('name foo');
+        $lead = new Lead();
 
         $result = $lead->toArray();
 
-        $this->assertEquals([
-            'name' => 'name foo',
-        ], $result);
+        $this->assertEquals([], $result);
     }
 
     public function test_Lead_with_custom_field_strips_prefix()
     {
-        $lead = new Lead('name foo');
+        $lead = new Lead();
         $lead->setCustomField('custom.foo', 'bar');
 
         $this->assertEquals(['foo' => 'bar'], $lead->getCustomFields());
@@ -61,7 +43,6 @@ class LeadTest extends TestCase
         $result = $lead->toArray();
 
         $this->assertEquals([
-            'name' => 'name foo',
             'custom.foo' => 'bar'
         ], $result);
     }

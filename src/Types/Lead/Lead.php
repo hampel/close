@@ -34,9 +34,9 @@ class Lead extends AbstractType implements Arrayable
     /**
      * Lead constructor.
      *
-     * @param string $name lead name
+     * @param string|null $name lead name (optional)
      */
-	public function __construct($name)
+	public function __construct($name = null)
     {
         $this->setName($name);
     }
@@ -54,11 +54,6 @@ class Lead extends AbstractType implements Arrayable
      */
     public function setName($name)
     {
-        if (empty($name))
-        {
-            throw new InvalidArgumentException("name is required");
-        }
-
         $this->name = $name;
     }
 
