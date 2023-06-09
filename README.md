@@ -3,21 +3,16 @@ Close CRM API Wrapper Service
 
 A [Close CRM](https://close.com/) API wrapper using Guzzle.
 
-By [Simon Hampel](https://twitter.com/SimonHampel).
+By [Simon Hampel](mailto:simon@hampelgroup.com)
 
 See also: [Close API Documentation](https://developer.close.com/)
 
 Installation
 ------------
 
-The recommended way of installing the wrapper is through [Composer](http://getcomposer.org):
+To install using composer, run the following command:
 
-    :::json
-    {
-        "require": {
-            "hampel/close": "~3.0"
-        }
-    }
+`composer require hampel/close`
 
 Configuration
 -------------
