@@ -1,6 +1,6 @@
 {
 	"name" : "hampel/close",
-	"description" : "Wrapper for the Close.com CRM REST API using Guzzle",
+	"description" : "Close.com CRM API wrapper using Guzzle",
 	"authors" : [{
 		"name": "Simon Hampel",
 		"email": "simon@hampelgroup.com",
