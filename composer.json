@@ -7,10 +7,10 @@
 		"role": "Developer"
 	}],
 	"support" : {
-		"issues": "https://bitbucket.org/hampel/close/issues",
-		"source": "https://bitbucket.org/hampel/close/src"
+		"issues": "https://github.com/hampel/close/issues",
+		"source": "https://github.com/hampel/close"
 	},
-    "homepage": "https://bitbucket.org/hampel/close",
+    "homepage": "https://github.com/hampel/close",
 	"keywords" : [
 		"guzzle",
 		"Close.com",
