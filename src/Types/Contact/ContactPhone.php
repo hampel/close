@@ -10,7 +10,7 @@ class ContactPhone extends AbstractContactMethod
      * @param string $phone
      * @param string $type
      */
-	public function __construct($phone, $type = "office")
+	public function __construct(string $phone, string $type = "office")
 	{
 	    $this->setPhone($phone);
 	    $this->setType($type);
@@ -19,7 +19,7 @@ class ContactPhone extends AbstractContactMethod
     /**
      * @return string
      */
-	public function getPhone()
+	public function getPhone() : string
 	{
 		return $this->getDetail();
 	}
@@ -29,7 +29,7 @@ class ContactPhone extends AbstractContactMethod
      *
      * @throws InvalidArgumentException
      */
-	public function setPhone($phone)
+	public function setPhone(string $phone) : void
     {
         $phone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
 
@@ -44,7 +44,7 @@ class ContactPhone extends AbstractContactMethod
 	/**
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray() : array
 	{
 		return [
 			'phone' => $this->getPhone(),

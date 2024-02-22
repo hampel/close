@@ -5,20 +5,12 @@ use PHPUnit\Framework\TestCase;
 
 class EmailAddressTest extends TestCase
 {
-    public function test_EmailAddress_null_email_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid email address []');
-
-        new EmailAddress(null);
-    }
-
     public function test_EmailAddress_empty_email_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email address []');
 
-        new EmailAddress('');
+        new EmailAddress("");
     }
 
     public function test_EmailAddress_invalid_email_throws_exception()

@@ -6,20 +6,12 @@ use PHPUnit\Framework\TestCase;
 
 class ContactTest extends TestCase
 {
-    public function test_Contact_no_name_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('name is required');
-
-        new Contact(null);
-    }
-
     public function test_Contact_empty_name_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('name is required');
 
-        new Contact('');
+        new Contact("");
     }
 
     public function test_Contact_invalid_lead_throws_exception()

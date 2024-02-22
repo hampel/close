@@ -36,7 +36,7 @@ class Contact extends AbstractType implements Arrayable
      * @param string $lead_id
      * @param string $name
      */
-	public function __construct($name, $lead_id = null)
+	public function __construct(string $name, ?string $lead_id = null)
 	{
 		$this->setName($name);
 		if ($lead_id)
@@ -48,7 +48,7 @@ class Contact extends AbstractType implements Arrayable
 	/**
 	 * @return string
 	 */
-	public function getLeadId()
+	public function getLeadId() : ?string
 	{
 		return $this->lead_id;
 	}
@@ -58,7 +58,7 @@ class Contact extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setLeadId($lead_id)
+    public function setLeadId(string $lead_id) : void
     {
         if (substr($lead_id, 0, 5) !== 'lead_')
         {
@@ -71,7 +71,7 @@ class Contact extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getName()
+	public function getName() : string
 	{
 		return $this->name;
 	}
@@ -81,7 +81,7 @@ class Contact extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setName($name)
+    public function setName(string $name) : void
     {
         if (empty($name))
         {
@@ -94,7 +94,7 @@ class Contact extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getTitle()
+	public function getTitle() : ?string
 	{
 		return $this->title;
 	}
@@ -102,7 +102,7 @@ class Contact extends AbstractType implements Arrayable
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title) : void
     {
         $this->title = $title;
     }
@@ -110,7 +110,7 @@ class Contact extends AbstractType implements Arrayable
     /**
 	 * @return ContactPhone[]
 	 */
-	public function getPhones()
+	public function getPhones() : array
 	{
 		return $this->phones;
 	}
@@ -118,7 +118,7 @@ class Contact extends AbstractType implements Arrayable
     /**
      * @param ContactPhone $phone
      */
-    public function addPhone(ContactPhone $phone)
+    public function addPhone(ContactPhone $phone) : void
     {
         $this->phones[] = $phone;
     }
@@ -126,7 +126,7 @@ class Contact extends AbstractType implements Arrayable
     /**
 	 * @return ContactEmail[]
 	 */
-	public function getEmails()
+	public function getEmails() : array
 	{
 		return $this->emails;
 	}
@@ -134,7 +134,7 @@ class Contact extends AbstractType implements Arrayable
     /**
      * @param ContactEmail $email
      */
-    public function addEmail(ContactEmail $email)
+    public function addEmail(ContactEmail $email) : void
     {
         $this->emails[] = $email;
     }
@@ -142,7 +142,7 @@ class Contact extends AbstractType implements Arrayable
     /**
 	 * @return ContactUrl[]
 	 */
-	public function getUrls()
+	public function getUrls() : array
 	{
 		return $this->urls;
 	}
@@ -150,7 +150,7 @@ class Contact extends AbstractType implements Arrayable
     /**
      * @param ContactUrl $url
      */
-    public function addUrl(ContactUrl $url)
+    public function addUrl(ContactUrl $url) : void
     {
         $this->urls[] = $url;
     }
@@ -158,12 +158,12 @@ class Contact extends AbstractType implements Arrayable
     /**
      * @return array
      */
-    public function getCustomFields()
+    public function getCustomFields() : array
     {
         return $this->customFields;
     }
 
-    public function setCustomField($field_id, $value)
+    public function setCustomField(string $field_id, string $value) : void
     {
         $id = $this->stripCustomPrefix($field_id);
 
@@ -173,7 +173,7 @@ class Contact extends AbstractType implements Arrayable
     /**
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray() : array
 	{
 		$phones = $this->getPhones();
 		$emails = $this->getEmails();

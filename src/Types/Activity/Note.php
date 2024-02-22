@@ -20,7 +20,7 @@ class Note extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($lead_id, $note)
+    public function __construct(string $lead_id, string $note)
     {
         $this->setLeadId($lead_id);
         $this->setNote($note);
@@ -29,7 +29,7 @@ class Note extends AbstractType implements Arrayable
     /**
      * @return string
      */
-    public function getLeadId()
+    public function getLeadId() : string
     {
         return $this->lead_id;
     }
@@ -37,7 +37,7 @@ class Note extends AbstractType implements Arrayable
     /**
      * @param string $lead_id
      */
-    public function setLeadId($lead_id)
+    public function setLeadId(string $lead_id) : void
     {
         if (substr($lead_id, 0, 5) !== 'lead_')
         {
@@ -50,7 +50,7 @@ class Note extends AbstractType implements Arrayable
     /**
      * @return string
      */
-    public function getNote()
+    public function getNote() : string
     {
         return $this->note;
     }
@@ -58,7 +58,7 @@ class Note extends AbstractType implements Arrayable
     /**
      * @param string $note
      */
-    public function setNote($note)
+    public function setNote(string $note) : void
     {
         if (empty($note))
         {
@@ -71,7 +71,7 @@ class Note extends AbstractType implements Arrayable
 	/**
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray() : array
 	{
 		return [
             'lead_id' => $this->getLeadId(),

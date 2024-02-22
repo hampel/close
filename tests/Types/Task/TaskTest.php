@@ -7,20 +7,12 @@ use PHPUnit\Framework\TestCase;
 
 class TaskTest extends TestCase
 {
-    public function test_Task_null_lead_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid lead_id []');
-
-        new Task(null, null);
-    }
-
     public function test_Task_empty_lead_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid lead_id []');
 
-        new Task('', null);
+        new Task("", "");
     }
 
     public function test_Task_invalid_lead_throws_exception()
@@ -28,15 +20,7 @@ class TaskTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid lead_id [lead foo]');
 
-        new Task('lead foo', null);
-    }
-
-    public function test_Task_null_text_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('text is required');
-
-        new Task('lead_foo', null);
+        new Task('lead foo', "");
     }
 
     public function test_Task_empty_text_throws_exception()
@@ -44,16 +28,7 @@ class TaskTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('text is required');
 
-        new Task('lead_foo', '');
-    }
-
-    public function test_Task_null_assigned_to_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid user_id []');
-
-        $task = new Task('lead_foo', 'text foo');
-        $task->setAssignedTo(null);
+        new Task('lead_foo', "");
     }
 
     public function test_Task_empty_assigned_to_throws_exception()
@@ -62,7 +37,7 @@ class TaskTest extends TestCase
         $this->expectExceptionMessage('Invalid user_id []');
 
         $task = new Task('lead_foo', 'text foo');
-        $task->setAssignedTo('');
+        $task->setAssignedTo("");
     }
 
     public function test_Task_invalid_assigned_to_throws_exception()

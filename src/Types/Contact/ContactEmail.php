@@ -10,16 +10,16 @@ class ContactEmail extends AbstractContactMethod
      * @param EmailAddress $email
      * @param string $type
      */
-	public function __construct(EmailAddress $email, $type = "office")
+	public function __construct(EmailAddress $email, string $type = "office")
 	{
 		$this->setEmail($email);
 		$this->setType($type);
 	}
 
     /**
-     * @return EmailAddress
+     * @return string
      */
-	public function getEmail()
+	public function getEmail() : string
 	{
 		return $this->getDetail();
 	}
@@ -27,7 +27,7 @@ class ContactEmail extends AbstractContactMethod
     /**
      * @param EmailAddress $email
      */
-    public function setEmail(EmailAddress $email)
+    public function setEmail(EmailAddress $email) : void
     {
         $this->setDetail($email->getEmail());
     }
@@ -35,7 +35,7 @@ class ContactEmail extends AbstractContactMethod
 	/**
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray() : array
 	{
 		return [
 			'email' => $this->getEmail(),

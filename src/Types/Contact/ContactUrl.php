@@ -9,7 +9,7 @@ class ContactUrl extends AbstractContactMethod
      *
      * @param string $url
      */
-	public function __construct($url)
+	public function __construct(string $url)
 	{
         $this->setUrl($url);
         $this->setType('url');
@@ -18,7 +18,7 @@ class ContactUrl extends AbstractContactMethod
     /**
      * @return string
      */
-	public function getUrl()
+	public function getUrl() : string
 	{
 		return $this->getDetail();
 	}
@@ -28,7 +28,7 @@ class ContactUrl extends AbstractContactMethod
      *
      * @throws InvalidArgumentException
      */
-	public function setUrl($url)
+	public function setUrl(string $url) : void
     {
         $filtered = filter_var($url, FILTER_VALIDATE_URL);
         if ($filtered === false)
@@ -42,7 +42,7 @@ class ContactUrl extends AbstractContactMethod
 	/**
 	 * @return array
 	 */
-	public function toArray()
+	public function toArray() : array
 	{
 		return [
 			'url' => $this->getUrl(),

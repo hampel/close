@@ -65,38 +65,38 @@ class Email extends AbstractType implements Arrayable
 	private $template_id;
 
 	/**
-	 * @param $lead_id		required - Close.com lead to associate message with ("lead_???")
-	 * @param $direction	required - ['incoming', 'outgoing']
-	 * @param string $status ['inbox', 'draft', 'scheduled', 'outbox', 'sent'] - setting status to "outbox" will send an email!
-     * @param string|null $subject subject of the message
+	 * @param string $lead_id		required - Close.com lead to associate message with ("lead_???")
+	 * @param string $direction	    required - ['incoming', 'outgoing']
+	 * @param string $status        required - ['inbox', 'draft', 'scheduled', 'outbox', 'sent'] - setting status to "outbox" will send an email!
+     * @param string|null $subject  optional - subject of the message
 	 */
-	public function __construct($lead_id, $direction, $status, $subject = null)
+	public function __construct(string $lead_id, string $direction, string $status, ?string $subject = null)
 	{
 		$this->setLeadId($lead_id);
 		$this->setDirection($direction);
 		$this->setStatus($status);
-		$this->setSubject($subject);
+		if ($subject) $this->setSubject($subject);
 	}
 
     /**
-     * @param string $lead_id Close.com lead
-     * @param Carbon $date_created date created
-     * @param string $subject email subject
-     * @param string $sender sender email address
-     * @param string $to recipient email address
+     * @param string $lead_id       Close.com lead
+     * @param Carbon $date_created  date created
+     * @param string $subject       email subject
+     * @param string $sender        sender email address
+     * @param string $to            recipient email address
      * @param string|null $body_text optional email body text
      * @param string|null $body_html option email body html
      *
      * @return Email
      */
-	public static function logOutboundEmail($lead_id, Carbon $date_created, $subject, $sender, $to, $body_text = null, $body_html = null)
+	public static function logOutboundEmail(string $lead_id, Carbon $date_created, string $subject, string $sender, string $to, ?string $body_text = null, ?string $body_html = null) : Email
 	{
 		$email = new static($lead_id, 'outgoing', 'sent', $subject);
 		$email->setDateCreated($date_created);
 		$email->setSender(new EmailAddress($sender));
 		$email->addTo(new EmailAddress($to));
-		$email->setBodyText($body_text);
-		$email->setBodyHtml($body_html);
+        if ($body_text) $email->setBodyText($body_text);
+        if ($body_html) $email->setBodyHtml($body_html);
 
 		return $email;
 	}
@@ -112,14 +112,14 @@ class Email extends AbstractType implements Arrayable
      *
      * @return Email
      */
-	public static function logInboundEmail($lead_id, Carbon $date_created, $subject, $sender, $to, $body_text = null, $body_html = null)
+	public static function logInboundEmail(string $lead_id, Carbon $date_created, string $subject, string $sender, string $to, ?string $body_text = null, ?string $body_html = null) : Email
 	{
         $email = new static($lead_id, 'incoming', 'inbox', $subject);
         $email->setDateCreated($date_created);
         $email->setSender(new EmailAddress($sender));
         $email->addTo(new EmailAddress($to));
-        $email->setBodyText($body_text);
-        $email->setBodyHtml($body_html);
+        if ($body_text) $email->setBodyText($body_text);
+        if ($body_html) $email->setBodyHtml($body_html);
 
         return $email;
 	}
@@ -127,7 +127,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getContactId()
+	public function getContactId() : ?string
 	{
 		return $this->contact_id;
 	}
@@ -137,7 +137,7 @@ class Email extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setContactId($contact_id)
+    public function setContactId(string $contact_id) : void
     {
         if (substr($contact_id, 0, 5) !== 'cont_')
         {
@@ -150,7 +150,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @return string
      */
-    public function getUserId()
+    public function getUserId() : ?string
 	{
 		return $this->user_id;
 	}
@@ -160,7 +160,7 @@ class Email extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setUserId($user_id)
+    public function setUserId(string $user_id) : void
     {
         if (substr($user_id, 0, 5) !== 'user_')
         {
@@ -173,7 +173,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getLeadId()
+	public function getLeadId() : string
 	{
 		return $this->lead_id;
 	}
@@ -183,7 +183,7 @@ class Email extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setLeadId($lead_id)
+    public function setLeadId(string $lead_id) : void
     {
         if (substr($lead_id, 0, 5) !== 'lead_')
         {
@@ -196,7 +196,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getDirection()
+	public function getDirection() : string
 	{
 		return $this->direction;
 	}
@@ -206,7 +206,7 @@ class Email extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setDirection($direction)
+    public function setDirection(string $direction) : void
     {
         if (!in_array($direction, self::$directions))
         {
@@ -219,7 +219,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getCreatedBy()
+	public function getCreatedBy() : ?string
 	{
 		return $this->created_by;
 	}
@@ -229,7 +229,7 @@ class Email extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setCreatedBy($created_by)
+    public function setCreatedBy(string $created_by) : void
     {
         if (substr($created_by, 0, 5) !== 'user_')
         {
@@ -242,7 +242,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getCreatedByName()
+	public function getCreatedByName() : ?string
 	{
 		return $this->created_by_name;
 	}
@@ -258,7 +258,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return Carbon
 	 */
-	public function getDateCreated()
+	public function getDateCreated() : ?Carbon
 	{
 		return $this->date_created;
 	}
@@ -266,7 +266,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @return string
      */
-    public function getDateCreatedAtom()
+    public function getDateCreatedAtom() : ?string
     {
         return $this->date_created ? $this->date_created->toAtomString() : null;
     }
@@ -274,7 +274,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param Carbon $date_created date message was created
      */
-    public function setDateCreated(Carbon $date_created)
+    public function setDateCreated(Carbon $date_created) : void
     {
         $this->date_created = $date_created;
     }
@@ -282,7 +282,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getSubject()
+	public function getSubject() : ?string
 	{
 		return $this->subject;
 	}
@@ -290,7 +290,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param string $subject
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject) : void
     {
         $this->subject = $subject;
     }
@@ -298,7 +298,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getSender()
+	public function getSender() : ?string
 	{
 		return $this->sender ? strval($this->sender) : null;
 	}
@@ -306,7 +306,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param EmailAddress $sender sender email address of the message
      */
-    public function setSender(EmailAddress $sender)
+    public function setSender(EmailAddress $sender) : void
     {
         $this->sender = $sender;
     }
@@ -314,7 +314,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return array
 	 */
-	public function getTo()
+	public function getTo() : array
 	{
 		return array_map('strval', $this->to);
 	}
@@ -322,7 +322,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param EmailAddress $to array of EmailAddress email sent to
      */
-    public function addTo(EmailAddress $to)
+    public function addTo(EmailAddress $to) : void
     {
         $this->to[] = $to;
     }
@@ -330,7 +330,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return array
 	 */
-	public function getBcc()
+	public function getBcc() : array
 	{
 		return array_map('strval', $this->bcc);
 	}
@@ -338,7 +338,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param EmailAddress $bcc array of EmailAddress email Bcc'd to
      */
-    public function addBcc(EmailAddress $bcc)
+    public function addBcc(EmailAddress $bcc) : void
     {
         $this->bcc[] = $bcc;
     }
@@ -346,7 +346,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return mixed
 	 */
-	public function getCc()
+	public function getCc() : array
 	{
 		return array_map('strval', $this->cc);
 	}
@@ -354,7 +354,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param EmailAddress $cc email Cc'd to
      */
-    public function addCc(EmailAddress $cc)
+    public function addCc(EmailAddress $cc) : void
     {
         $this->cc[] = $cc;
     }
@@ -362,7 +362,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getStatus()
+	public function getStatus() : string
 	{
 		return $this->status;
 	}
@@ -372,7 +372,7 @@ class Email extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setStatus($status)
+    public function setStatus(string $status) : void
     {
         if (!in_array($status, self::$statuses))
         {
@@ -385,7 +385,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getBodyText()
+	public function getBodyText() : ?string
 	{
 		return $this->body_text;
 	}
@@ -393,7 +393,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param string $body_text text representation of email
      */
-    public function setBodyText($body_text)
+    public function setBodyText(string $body_text) : void
     {
         $this->body_text = $body_text;
     }
@@ -401,7 +401,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @return string html representation of email
      */
-    public function getBodyHtml()
+    public function getBodyHtml() : ?string
     {
         return $this->body_html;
     }
@@ -409,7 +409,7 @@ class Email extends AbstractType implements Arrayable
     /**
      * @param string $body_html
      */
-    public function setBodyHtml($body_html)
+    public function setBodyHtml(string $body_html) : void
     {
         $this->body_html = $body_html;
     }
@@ -417,7 +417,7 @@ class Email extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getTemplateId()
+	public function getTemplateId() : ?string
 	{
 		return $this->template_id;
 	}
@@ -427,7 +427,7 @@ class Email extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setTemplateId($template_id)
+    public function setTemplateId(string $template_id) : void
     {
         if (substr($template_id, 0, 5) !== 'tmpl_')
         {
@@ -437,7 +437,7 @@ class Email extends AbstractType implements Arrayable
         $this->template_id = $template_id;
     }
 
-    public function toArray()
+    public function toArray() : array
 	{
         $to = $this->getTo();
         $bcc = $this->getBcc();

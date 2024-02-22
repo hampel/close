@@ -5,20 +5,12 @@ use PHPUnit\Framework\TestCase;
 
 class ContactUrlTest extends TestCase
 {
-    public function test_ContactUrl_null_url_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid url []');
-
-        new ContactUrl(null);
-    }
-
     public function test_ContactUrl_empty_url_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid url []');
 
-        new ContactUrl('');
+        new ContactUrl("");
     }
 
     public function test_ContactUrl_invalid_url_throws_exception()

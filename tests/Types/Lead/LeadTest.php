@@ -55,7 +55,7 @@ class LeadTest extends TestCase
         $lead->setStatusId('stat_foo');
         $lead->addContact(new Contact('contact foo'));
         $lead->setCustomField('custom.foo', 'bar');
-        $lead->addAddress(new LeadAddress('address foo', null, null, null, null));
+        $lead->addAddress(new LeadAddress('address foo', "", "", "", ""));
 
         $result = $lead->toArray();
 

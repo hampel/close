@@ -16,7 +16,7 @@ class EmailAddress
      * @param string $email
      * @param string $name
      */
-	public function __construct($email, $name = '')
+	public function __construct(string $email, string $name = '')
 	{
 	    // if email is in the form 'name <email>' then override the name paramater with the name in the email
         if (preg_match('/^(?:(.*?)\s<?)?([A-Z0-9._%+-]+@[A-Z0-9.-]+)>?$/im', $email, $matches)) {
@@ -36,7 +36,7 @@ class EmailAddress
      *
      * @return EmailAddress
      */
-	public static function createEmailAddress($email, $name = '')
+	public static function createEmailAddress(string $email, string $name = '') : EmailAddress
 	{
 		return new self($email, $name);
 	}
@@ -44,7 +44,7 @@ class EmailAddress
     /**
 	 * @return string
 	 */
-	public function getEmail()
+	public function getEmail() : string
 	{
 		return $this->email;
 	}
@@ -52,7 +52,7 @@ class EmailAddress
     /**
      * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email) : void
     {
         if (empty($email))
         {
@@ -71,7 +71,7 @@ class EmailAddress
     /**
      * @return string
      */
-	public function getName()
+	public function getName() : string
 	{
 		return $this->name;
 	}
@@ -79,7 +79,7 @@ class EmailAddress
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
@@ -87,7 +87,7 @@ class EmailAddress
     /**
      * @return string
      */
-	public function __toString()
+	public function __toString() : string
 	{
 		$name = $this->getName();
 		$email = $this->getEmail();

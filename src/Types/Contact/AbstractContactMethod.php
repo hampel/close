@@ -8,7 +8,7 @@ abstract class AbstractContactMethod extends AbstractType implements Arrayable
 {
 	private static $types = ['office', 'mobile', 'home', 'direct', 'fax', 'url', 'other'];
 
-	/** @var mixed */
+	/** @var string */
 	private $detail;
 
 	/** @var string */
@@ -17,19 +17,19 @@ abstract class AbstractContactMethod extends AbstractType implements Arrayable
     /**
      * AbstractContactMethod constructor.
      *
-     * @param mixed $detail
+     * @param string $detail
      * @param string $type
      */
-	public function __construct($detail, $type = "office")
+	public function __construct(string $detail, string $type = "office")
 	{
         $this->setDetail($detail);
         $this->setType($type);
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	protected function getDetail()
+	protected function getDetail() : string
 	{
 		return $this->detail;
 	}
@@ -45,7 +45,7 @@ abstract class AbstractContactMethod extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getType()
+	public function getType() : string
 	{
 		return $this->type;
 	}
@@ -55,7 +55,7 @@ abstract class AbstractContactMethod extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setType($type)
+    public function setType(string $type) : void
     {
         if (!in_array($type, self::$types))
         {

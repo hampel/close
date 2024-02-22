@@ -12,7 +12,7 @@ class EmailTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid lead_id []');
 
-        new Email(null, null, null);
+        new Email("", "", "");
     }
 
     public function test_Email_no_direction_throws_exception()
@@ -20,7 +20,7 @@ class EmailTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid direction []');
 
-        new Email('lead_foo', null, null);
+        new Email('lead_foo', "", "");
     }
 
     public function test_Email_invalid_direction_throws_exception()
@@ -28,7 +28,7 @@ class EmailTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid direction [foo]');
 
-        new Email('lead_foo', 'foo', null);
+        new Email('lead_foo', 'foo', "");
     }
 
     public function test_Email_no_status_throws_exception()
@@ -36,7 +36,7 @@ class EmailTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid status []');
 
-        new Email('lead_foo', 'incoming', null);
+        new Email('lead_foo', 'incoming', "");
     }
 
     public function test_Email_invalid_status_throws_exception()

@@ -10,7 +10,7 @@ class NoteTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid lead_id []');
 
-        new Note(null, null);
+        new Note("", "");
     }
 
     public function test_Note_no_note_throws_exception()
@@ -18,7 +18,7 @@ class NoteTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('note is required');
 
-        new Note('lead_foo', null);
+        new Note('lead_foo', "");
     }
 
     public function test_Note_with_data()

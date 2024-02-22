@@ -5,20 +5,12 @@ use PHPUnit\Framework\TestCase;
 
 class ContactPhoneTest extends TestCase
 {
-    public function test_ContactPhone_null_phone_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('phone number is required');
-
-        new ContactPhone(null);
-    }
-
     public function test_ContactPhone_empty_phone_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('phone number is required');
 
-        new ContactPhone('');
+        new ContactPhone("");
     }
 
     public function test_ContactPhone_zero_phone_throws_exception()

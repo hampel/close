@@ -36,15 +36,18 @@ class Lead extends AbstractType implements Arrayable
      *
      * @param string|null $name lead name (optional)
      */
-	public function __construct($name = null)
+	public function __construct(?string $name = null)
     {
-        $this->setName($name);
+        if ($name)
+        {
+            $this->setName($name);
+        }
     }
 
     /**
 	 * @return string
 	 */
-	public function getName()
+	public function getName() : ?string
 	{
 		return $this->name;
 	}
@@ -52,7 +55,7 @@ class Lead extends AbstractType implements Arrayable
     /**
      * @param string $name lead name
      */
-    public function setName($name)
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
@@ -60,7 +63,7 @@ class Lead extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getUrl()
+	public function getUrl() : ?string
 	{
 		return $this->url;
 	}
@@ -70,7 +73,7 @@ class Lead extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setUrl($url)
+    public function setUrl(string $url) : void
     {
         if (!empty($url))
         {
@@ -87,7 +90,7 @@ class Lead extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getDescription()
+	public function getDescription() : ?string
 	{
 		return $this->description;
 	}
@@ -95,7 +98,7 @@ class Lead extends AbstractType implements Arrayable
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description) : void
     {
         $this->description = $description;
     }
@@ -104,7 +107,7 @@ class Lead extends AbstractType implements Arrayable
     /**
 	 * @return string
 	 */
-	public function getStatusId()
+	public function getStatusId() : ?string
 	{
 		return $this->status_id;
 	}
@@ -114,7 +117,7 @@ class Lead extends AbstractType implements Arrayable
      *
      * @throws InvalidArgumentException
      */
-    public function setStatusId($status_id)
+    public function setStatusId(string $status_id) : void
     {
         if (!empty($status_id) AND substr($status_id, 0, 5) !== 'stat_')
         {
@@ -127,7 +130,7 @@ class Lead extends AbstractType implements Arrayable
     /**
 	 * @return array
 	 */
-	public function getContacts()
+	public function getContacts() : array
 	{
 		return $this->contacts;
 	}
@@ -135,7 +138,7 @@ class Lead extends AbstractType implements Arrayable
     /**
      * @param Contact $contact
      */
-    public function addContact(Contact $contact)
+    public function addContact(Contact $contact) : void
     {
         $this->contacts[] = $contact;
     }
@@ -143,12 +146,12 @@ class Lead extends AbstractType implements Arrayable
     /**
 	 * @return array
 	 */
-	public function getCustomFields()
+	public function getCustomFields() : array
 	{
 		return $this->customFields;
 	}
 
-    public function setCustomField($field_id, $value)
+    public function setCustomField(string $field_id, string $value) : void
     {
         $id = $this->stripCustomPrefix($field_id);
 
@@ -158,7 +161,7 @@ class Lead extends AbstractType implements Arrayable
     /**
 	 * @return array
 	 */
-	public function getAddresses()
+	public function getAddresses() : array
 	{
 		return $this->addresses;
 	}
@@ -166,7 +169,7 @@ class Lead extends AbstractType implements Arrayable
     /**
      * @param LeadAddress $address
      */
-    public function addAddress(LeadAddress $address)
+    public function addAddress(LeadAddress $address) : void
     {
         $this->addresses[] = $address;
     }
@@ -174,7 +177,7 @@ class Lead extends AbstractType implements Arrayable
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray() : array
 	{
 		$contacts = $this->getContacts();
 		$addresses = $this->getAddresses();

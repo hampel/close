@@ -5,20 +5,12 @@ use PHPUnit\Framework\TestCase;
 
 class LeadAddressTest extends TestCase
 {
-    public function test_LeadAddress_null_address_throws_exception()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('address1 is required');
-
-        new LeadAddress(null, null, null, null, null);
-    }
-
     public function test_LeadAddress_empty_address_throws_exception()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('address1 is required');
 
-        new LeadAddress('', null, null, null, null);
+        new LeadAddress("", "", "", "", "");
     }
 
     public function test_LeadAddress_invalid_label_throws_exception()
@@ -26,7 +18,7 @@ class LeadAddressTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid label [foo]');
 
-        new LeadAddress('foo', null, null, null, null, null, 'foo');
+        new LeadAddress('foo', "", "", "", "", null, 'foo');
     }
 
     public function test_LeadAddress_invalid_country_throws_exception()
@@ -34,12 +26,12 @@ class LeadAddressTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid country code [bar]');
 
-        new LeadAddress('foo', null, null, null, null, 'bar');
+        new LeadAddress('foo', "", "", "", "", 'bar');
     }
 
     public function test_minimal_LeadAddress()
     {
-        $address = new LeadAddress('foo', null, null, null, null);
+        $address = new LeadAddress('foo', "", "", "", "");
 
         $result = $address->toArray();
 
@@ -50,7 +42,7 @@ class LeadAddressTest extends TestCase
 
     public function test_LeadAddress_filter_country()
     {
-        $address = new LeadAddress('foo', null, null, null, null, 'aa');
+        $address = new LeadAddress('foo', "", "", "", "", 'aa');
 
         $result = $address->toArray();
 
