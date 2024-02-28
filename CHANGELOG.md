@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+3.2.0 (2024-02-29)
+------------------
+
+* implement stricter typing and thus minimum php version 7.1
+* require Carbon 2.x|3.x
+
 3.1.0 (2021-09-27)
 ------------------
 
